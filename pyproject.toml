@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "suffix-tree-tool"
+version = "0.1.0"
+description = "Générateur et rendu d'arbres de suffixes généralisés"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Emeric", email = "emeric@example.com"}
+]
+dependencies = [
+  "networkx>=3.0",
+  "pydot>=1.4.2"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Information Analysis"
+]
+
+[project.urls]
+Homepage = "https://github.com/emeric/suffix-tree-tool"
+
+[project.scripts]
+generate-suffix-tree = "suffix_tree_tool.cli:main"
