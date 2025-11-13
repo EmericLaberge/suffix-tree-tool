@@ -24,9 +24,21 @@ pip install git+https://github.com/EmericLaberge/suffix-tree-tool.git
 
 ## Usage
 
+Single-sequence example:
+
 ```bash
-generate-suffix-tree agacagg ggacaga acacac --annotate-internal --unique-terminal
+generate-suffix-tree gatgaatgg
 ```
+
+![Suffix tree rendering for a single sequence](examples/single_seq_tree.png)
+
+Multi-sequence example with internal annotations:
+
+```bash
+generate-suffix-tree gatgaatgg ggtaagtag --annotate-internal
+```
+
+![Suffix tree rendering for multiple sequences](examples/multi_seq_tree.png)
 
 Key options:
 
@@ -38,6 +50,8 @@ The renderer writes two files in the current directory:
 
 - `suffix_tree.dot`
 - `suffix_tree.pdf` (when Graphviz is available)
+
+Rendered screenshots are available under `examples/`.
 
 ## Python API
 

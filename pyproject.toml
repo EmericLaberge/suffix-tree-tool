@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "suffix-tree-tool"
-version = "0.1.0"
+version = "0.1.1"
 description = "Generalized suffix tree generator and renderer"
 readme = "README.md"
 requires-python = ">=3.9"
