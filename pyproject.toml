@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
-  {name = "Emeric", email = "emeric@example.com"}
+  {name = "Emeric", email = "emeric.laberge@umontreal.ca"}
 ]
 dependencies = [
   "networkx>=3.0",
@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/emeric/suffix-tree-tool"
+Homepage = "https://github.com/EmericLaberge/suffix-tree-tool"
 
 [project.scripts]
 generate-suffix-tree = "suffix_tree_tool.cli:main"

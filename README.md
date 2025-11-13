@@ -13,7 +13,7 @@ pip install .
 Ou directement depuis Git (une fois le dépôt public) :
 
 ```bash
-pip install git+https://github.com/emeric/suffix-tree-tool.git
+pip install git+https://github.com/EmericLaberge/suffix-tree-tool.git
 ```
 
 ## Utilisation
@@ -41,4 +41,4 @@ from suffix_tree_tool import process_sequences, build_suffix_tree, render_suffix
 
 ## Licence
 
-Distribué sous licence MIT. Voir ``LICENSE`` pour plus d’informations.
+Distribué sous licence MIT (voir ``LICENSE`` pour plus d’informations). Pour toute question ou contribution, écrivez à ``emeric.laberge@umontreal.ca``.
