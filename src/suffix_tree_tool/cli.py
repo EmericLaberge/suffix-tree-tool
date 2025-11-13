@@ -1,4 +1,4 @@
-"""Interface en ligne de commande pour suffix-tree-tool."""
+"""Command-line interface for suffix-tree-tool."""
 from __future__ import annotations
 
 import argparse
@@ -16,49 +16,49 @@ from .builder import (
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Construit et rend un arbre des suffixes généralisé pour 1 à 5 séquences.",
+        description="Build and render a generalized suffix tree for 1 to 5 sequences.",
     )
     parser.add_argument(
         "sequences",
         metavar="SEQ",
         nargs="+",
-        help="Séquence(s) (1 à 5). Exemple: SEQ1 [SEQ2 ... SEQ5]",
+        help="Sequence(s) (1 to 5). Example: SEQ1 [SEQ2 ... SEQ5]",
     )
     parser.add_argument(
         "--include-terminal",
         action="store_true",
-        help="Inclure le suffixe ne contenant que le terminateur (ex: '#').",
+        help="Include the suffix that contains only the terminator (e.g. '#').",
     )
     parser.add_argument(
         "--unique-terminal",
         action="store_true",
-        help="Attribuer un terminateur distinct à chaque séquence.",
+        help="Assign a distinct terminator to each sequence.",
     )
     parser.add_argument(
         "--annotate-internal",
         action="store_true",
-        help="Afficher profondeur (violet) et séquences (couleurs) sur les nœuds internes.",
+        help="Display depth (purple) and sequence indices (colors) on internal nodes.",
     )
     parser.add_argument(
         "--dot",
         default="suffix_tree.dot",
-        help="Chemin du fichier DOT de sortie (défaut: %(default)s).",
+        help="Path to the output DOT file (default: %(default)s).",
     )
     parser.add_argument(
         "--pdf",
         default="suffix_tree.pdf",
-        help="Chemin du PDF de sortie (défaut: %(default)s).",
+        help="Path to the output PDF file (default: %(default)s).",
     )
     parser.add_argument(
         "--no-open",
         action="store_true",
-        help="Ne pas tenter d'ouvrir automatiquement le PDF généré.",
+        help="Do not attempt to automatically open the generated PDF.",
     )
 
     args = parser.parse_args(argv)
 
     if not (1 <= len(args.sequences) <= 5):
-        parser.error("Vous devez fournir entre 1 et 5 séquences.")
+        parser.error("You must provide between 1 and 5 sequences.")
 
     return args
 
@@ -71,13 +71,11 @@ def main(argv: Optional[List[str]] = None) -> None:
             args.sequences, unique_terminal=args.unique_terminal
         )
     except ValueError as exc:
-        print(f"Erreur: {exc}", file=sys.stderr)
+        print(f"Error: {exc}", file=sys.stderr)
         raise SystemExit(1) from exc
 
-    mode = (
-        "distincts" if args.unique_terminal else f"identiques '{DEFAULT_TERMINATOR}'"
-    )
-    print(f"Séquences normalisées (terminateurs {mode}):")
+    mode = "are distinct" if args.unique_terminal else f"all use '{DEFAULT_TERMINATOR}'"
+    print(f"Normalized sequences (terminators {mode}):")
     for idx, (seq, terminator) in enumerate(sequences, start=1):
         print(f"  {idx}: {seq}{terminator}")
 
@@ -93,21 +91,16 @@ def main(argv: Optional[List[str]] = None) -> None:
         annotate_internal=args.annotate_internal,
         total_sequences=len(sequences),
     )
-    print("DOT écrit ->", dot_file)
+    print("DOT written ->", dot_file)
 
     try:
         pdf_file = dot_to_pdf(
             dot_file, pdf_path=args.pdf, open_viewer=not args.no_open
         )
-        print("PDF écrit ->", pdf_file)
+        print("PDF written ->", pdf_file)
     except Exception as exc:  # pylint: disable=broad-except
-        print("Impossible de générer/ouvrir le PDF automatiquement:", exc)
-        print(
-            "Commande manuelle: dot -Tpdf",
-            args.dot,
-            "-o",
-            args.pdf,
-        )
+        print("Could not generate/open the PDF automatically:", exc)
+        print("Manual command: dot -Tpdf", args.dot, "-o", args.pdf)
 
 
 if __name__ == "__main__":  # pragma: no cover

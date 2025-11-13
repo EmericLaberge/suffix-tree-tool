@@ -1,4 +1,4 @@
-"""Fonctions de construction et de rendu d'un arbre des suffixes généralisé."""
+"""Functions to build and render a generalized suffix tree."""
 from __future__ import annotations
 
 from typing import List, Sequence, Tuple
@@ -22,29 +22,29 @@ SEQUENCE_COLORS = {
 def process_sequences(
     raw_sequences: Sequence[str], unique_terminal: bool = False
 ) -> List[Tuple[str, str]]:
-    """Nettoie les séquences et attribue un terminateur.
+    """Sanitize sequences and assign terminators.
 
     Parameters
     ----------
     raw_sequences
-        Séquences fournies par l'utilisateur.
+        Sequences provided by the user.
     unique_terminal
-        Lorsque ``True``, chaque séquence reçoit un terminateur distinct
-        (dans l'ordre ``UNIQUE_TERMINATORS``). Sinon, toutes partagent
+        When ``True``, each sequence receives a distinct terminator
+        (following the ``UNIQUE_TERMINATORS`` order). Otherwise, all share
         ``DEFAULT_TERMINATOR``.
 
     Returns
     -------
     list of tuple
-        Liste de couples ``(sequence, terminateur)`` prêts pour la construction.
+        List of ``(sequence, terminator)`` tuples ready for construction.
     """
 
     if not raw_sequences:
-        raise ValueError("Au moins une séquence est requise.")
+        raise ValueError("At least one sequence is required.")
 
     if unique_terminal and len(raw_sequences) > len(UNIQUE_TERMINATORS):
         raise ValueError(
-            f"Au plus {len(UNIQUE_TERMINATORS)} séquences sont supportées en mode 'unique_terminal'."
+            f"At most {len(UNIQUE_TERMINATORS)} sequences are supported in 'unique_terminal' mode."
         )
 
     processed: List[Tuple[str, str]] = []
@@ -55,7 +55,7 @@ def process_sequences(
         )
         if terminator in seq:
             raise ValueError(
-                f"La séquence {idx + 1} contient déjà le terminateur '{terminator}'."
+                f"Sequence {idx + 1} already contains the terminator '{terminator}'."
             )
         processed.append((seq, terminator))
     return processed
@@ -64,10 +64,10 @@ def process_sequences(
 def build_suffix_tree(
     sequences: Sequence[Tuple[str, str]], include_terminal_suffix: bool = False
 ) -> nx.DiGraph:
-    """Construit un `DiGraph` NetworkX représentant l'arbre des suffixes."""
+    """Build a NetworkX `DiGraph` representing the suffix tree."""
 
     tree = nx.DiGraph()
-    tree.add_node(0, depth=0, seqs=set())  # racine
+    tree.add_node(0, depth=0, seqs=set())  # root
 
     for seq_index, (seq, terminator) in enumerate(sequences):
         seq_with_term = seq + terminator
@@ -123,7 +123,7 @@ def render_suffix_tree(
     annotate_internal: bool = False,
     total_sequences: int = 1,
 ) -> str:
-    """Écrit le graphe au format DOT et renvoie le chemin résultant."""
+    """Write the graph in DOT format and return the resulting path."""
 
     lines: List[str] = []
     lines.append("digraph SuffixTree {")
@@ -236,10 +236,10 @@ def render_suffix_tree(
 
 
 def dot_to_pdf(dot_path: str, pdf_path: str = "suffix_tree.pdf", open_viewer: bool = True) -> str:
-    """Transforme un fichier DOT en PDF via Graphviz."""
+    """Convert a DOT file to a PDF using Graphviz."""
 
     if shutil.which("dot") is None:
-        raise RuntimeError("Graphviz 'dot' introuvable. Installez-le pour générer le PDF.")
+        raise RuntimeError("Graphviz 'dot' executable not found. Install Graphviz to produce the PDF.")
 
     subprocess.run(["dot", "-Tpdf", dot_path, "-o", pdf_path], check=True)
     if open_viewer:

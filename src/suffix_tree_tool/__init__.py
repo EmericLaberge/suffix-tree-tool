@@ -1,4 +1,4 @@
-"""suffix_tree_tool - génération d'arbres des suffixes généralisés."""
+"""suffix_tree_tool - generalized suffix tree generation utilities."""
 
 from .builder import (
     DEFAULT_TERMINATOR,

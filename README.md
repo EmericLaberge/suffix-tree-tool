@@ -1,44 +1,50 @@
 # suffix-tree-tool
 
-Outil en ligne de commande et bibliothèque Python pour construire, annoter et rendre des arbres des suffixes généralisés. Le projet accepte jusqu'à cinq séquences, colore les arêtes par séquence et génère un rendu DOT/PDF prêt à être inclus dans des documents.
+Command-line tool and Python library for building, annotating, and rendering generalized suffix trees. The project accepts up to five sequences, colors edges per sequence, and produces DOT/PDF output that is ready to embed in documents.
 
 ## Installation
 
-Depuis un répertoire cloné :
+From PyPI:
+
+```bash
+pip install suffix-tree-tool
+```
+
+From a cloned repository:
 
 ```bash
 pip install .
 ```
 
-Ou directement depuis Git (une fois le dépôt public) :
+Or directly from Git (once the repository is public):
 
 ```bash
 pip install git+https://github.com/EmericLaberge/suffix-tree-tool.git
 ```
 
-## Utilisation
+## Usage
 
 ```bash
-generate-suffix-tree agacagg ggacaga --annotate-internal --unique-terminal
+generate-suffix-tree agacagg ggacaga acacac --annotate-internal --unique-terminal
 ```
 
-Options principales :
+Key options:
 
-- ``--include-terminal`` : conserve le suffixe constitué uniquement du terminateur.
-- ``--unique-terminal`` : attribue un terminateur distinct à chaque séquence.
-- ``--annotate-internal`` : ajoute les profondeurs et indices de séquences sur les nœuds internes.
+- `--include-terminal`: keep the suffix that contains only the terminator.
+- `--unique-terminal`: assign a distinct terminator to each sequence.
+- `--annotate-internal`: display depth and sequence indices on internal nodes.
 
-Le rendu génère deux fichiers dans le répertoire courant :
+The renderer writes two files in the current directory:
 
-- ``suffix_tree.dot``
-- ``suffix_tree.pdf`` (si Graphviz est disponible)
+- `suffix_tree.dot`
+- `suffix_tree.pdf` (when Graphviz is available)
 
-## API Python
+## Python API
 
 ```python
 from suffix_tree_tool import process_sequences, build_suffix_tree, render_suffix_tree
 ```
 
-## Licence
+## License
 
-Distribué sous licence MIT (voir ``LICENSE`` pour plus d’informations). Pour toute question ou contribution, écrivez à ``emeric.laberge@umontreal.ca``.
+Distributed under the MIT License (see `LICENSE` for details). For questions or contributions, email `emeric.laberge@umontreal.ca`.
